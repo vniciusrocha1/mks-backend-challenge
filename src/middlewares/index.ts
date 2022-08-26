@@ -2,10 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoviesEntity } from 'src/entities/movies.entity';
 import { Repository } from 'typeorm';
+import { UsersEntity } from 'src/entities/users.entity';
 const validate = require('uuid-validate');
 class __repositoriesMiddleware {
-    @InjectRepository(MoviesEntity)
-    public usersRepository: Repository<MoviesEntity>;
+    // @InjectRepository(UsersEntity)
+    // public usersRepository: Repository<UsersEntity>;
     @InjectRepository(MoviesEntity)
     public moviesRepository: Repository<MoviesEntity>;
 }
@@ -25,8 +26,8 @@ export class ConfigsMiddleware extends __repositoriesMiddleware {
         this._getRepository();
     }
     private _getRepository() {
-        let repository = this.endpoint === 'users' ? this.usersRepository : undefined;
-        repository = this.endpoint === 'movies' ? this.moviesRepository : repository;
+        let repository = this.endpoint === 'movies' ? this.moviesRepository : this.endpoint;
+        // repository = repository === 'users' ? this.usersRepository : repository;
         this.repository = repository;
     }
     private _getUuid() {
