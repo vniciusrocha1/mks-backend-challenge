@@ -23,6 +23,6 @@ export class MoviesService {
         return undefined;
     }
     async delete({ id }: MoviesParamsDTO) {
-        return undefined;
+        await this.repository.delete(id);
     }
 }
