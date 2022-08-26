@@ -11,8 +11,8 @@ export class UsersService {
         private repository: Repository<UsersEntity>,
     ) {}
     async save(data: UsersPOSTBodyDTO): Promise<UsersEntity> {
-        const movie = this.repository.create(data);
-        return await this.repository.save(movie);
+        const created = this.repository.create(data);
+        return await this.repository.save(created);
     }
     async getAll(): Promise<UsersEntity[]> {
         return await this.repository.find();
