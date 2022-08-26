@@ -13,7 +13,7 @@ export class MoviesService {
         return undefined;
     }
     async getAll(): Promise<MoviesEntity[]> {
-        return undefined;
+        return this.repository.find();
     }
     async getOne({ id }: MoviesParamsDTO): Promise<MoviesEntity> {
         return undefined;
