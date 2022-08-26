@@ -1,9 +1,9 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { __UsersRepositories } from '.';
+import { UsersRepositories } from '.';
 import { compareSync } from 'bcryptjs';
 @Injectable()
-export class AuthMiddleware extends __UsersRepositories implements NestMiddleware {
+export class AuthMiddleware extends UsersRepositories implements NestMiddleware {
     use(req: Request, res: Response, next: NextFunction) {
         this.__init__(req, res, next);
         return this.validateCredentials();

@@ -1,9 +1,9 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { __MoviesRepositories } from '.';
+import { MoviesRepositories } from '.';
 const util = require('util');
 @Injectable()
-export class MoviesMiddleware extends __MoviesRepositories implements NestMiddleware {
+export class MoviesMiddleware extends MoviesRepositories implements NestMiddleware {
     use(req: Request, res: Response, next: NextFunction) {
         this.__init__(req, res, next);
         return this.validateIDs();
