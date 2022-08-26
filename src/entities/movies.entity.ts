@@ -8,7 +8,6 @@ import {
 @Entity('tbl_movies')
 export class MoviesEntity {
   @PrimaryGeneratedColumn('uuid')
-  @Column({ name: 'mvi_title' })
   readonly id: string;
   @Column({ name: 'mvi_title', type: 'varchar', length: 255 })
   title: string;
