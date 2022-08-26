@@ -16,7 +16,7 @@ export class MoviesService {
         return this.repository.find();
     }
     async getOne({ id }: MoviesParamsDTO): Promise<MoviesEntity> {
-        return undefined;
+        return this.repository.findOne({ where: { id } });
     }
     async update({ id }: MoviesParamsDTO, data: MoviesPATCHBodyDTO): Promise<MoviesEntity> {
         return undefined;
