@@ -11,6 +11,7 @@ export class AuthService {
         private repository: Repository<UsersEntity>,
     ) {}
     async login(credentials: AuthPOSTBodyDTO): Promise<{ token: string; data: UsersEntity }> {
+        console.log('credentials ', credentials);
         let token = '';
         let data: any = {};
         return { token, data };
