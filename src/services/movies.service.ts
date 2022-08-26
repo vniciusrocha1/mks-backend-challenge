@@ -10,7 +10,8 @@ export class MoviesService {
         private repository: Repository<MoviesEntity>,
     ) {}
     async save(data: MoviesPOSTBodyDTO): Promise<MoviesEntity> {
-        return undefined;
+        const movie = this.repository.create(data);
+        return this.repository.save(movie);
     }
     async getAll(): Promise<MoviesEntity[]> {
         return this.repository.find();
