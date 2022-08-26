@@ -1,8 +1,8 @@
 {
-    "name": "criando-minha-api-nest-com-type-orm",
-    "version": "0.0.1",
-    "description": "",
-    "author": "",
+    "name": "mks-backend-challenge-vniciusrocha1",
+    "version": "1.0.0",
+    "description": "Desafio Backend da MKS & Meu primeiro projeto em Nestjs",
+    "author": "Vinicius Rocha Pereira",
     "private": true,
     "license": "UNLICENSED",
     "scripts": {
