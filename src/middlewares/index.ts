@@ -34,7 +34,6 @@ export class __ConfigsMiddleware {
             baseUrl,
         } = this.req;
         let splited_url = !!baseUrl ? baseUrl.split('/') : path.split('/');
-        console.log('splited_url ', splited_url);
         let last_value = splited_url[splited_url.length - 1];
         let index =
             validate(last_value) || last_value === ':id' || last_value === ''
