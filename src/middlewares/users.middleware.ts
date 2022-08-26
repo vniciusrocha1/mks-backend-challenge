@@ -1,9 +1,9 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { __UsersRepositories } from '.';
+import { UsersRepositories } from '.';
 const util = require('util');
 @Injectable()
-export class UsersMiddleware extends __UsersRepositories implements NestMiddleware {
+export class UsersMiddleware extends UsersRepositories implements NestMiddleware {
     use(req: Request, res: Response, next: NextFunction) {
         this.__init__(req, res, next);
         return this.validateIDs();

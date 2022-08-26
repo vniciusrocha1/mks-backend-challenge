@@ -2,6 +2,7 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MoviesController } from 'src/controllers/movies.controller';
 import { MoviesEntity } from 'src/entities/movies.entity';
+import { JwtMiddleware } from 'src/middlewares/jwt.middleware';
 import { MoviesMiddleware } from 'src/middlewares/movies.middleware';
 import { MoviesService } from 'src/services/movies.service';
 @Module({
@@ -11,6 +12,6 @@ import { MoviesService } from 'src/services/movies.service';
 })
 export class MoviesModule {
     configure(consumer: MiddlewareConsumer) {
-        consumer.apply(MoviesMiddleware).forRoutes(MoviesController);
+        consumer.apply(JwtMiddleware, MoviesMiddleware).forRoutes(MoviesController);
     }
 }

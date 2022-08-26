@@ -2,6 +2,7 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersController } from 'src/controllers/users.controller';
 import { UsersEntity } from 'src/entities/users.entity';
+import { JwtMiddleware } from 'src/middlewares/jwt.middleware';
 import { UsersMiddleware } from 'src/middlewares/users.middleware';
 import { UsersService } from 'src/services/users.service';
 @Module({
@@ -11,6 +12,6 @@ import { UsersService } from 'src/services/users.service';
 })
 export class UsersModule {
     configure(consumer: MiddlewareConsumer) {
-        consumer.apply(UsersMiddleware).forRoutes(UsersController);
+        consumer.apply(JwtMiddleware, UsersMiddleware).forRoutes(UsersController);
     }
 }

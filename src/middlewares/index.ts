@@ -4,8 +4,9 @@ import { MoviesEntity } from 'src/entities/movies.entity';
 import { Repository } from 'typeorm';
 import { UsersEntity } from 'src/entities/users.entity';
 const validate = require('uuid-validate');
-class ConfigsMiddleware {
+export class __ConfigsMiddleware {
     public endpoint: string = undefined;
+    public method: string = undefined;
     public uuid: string = undefined;
     public req: Request = undefined;
     public res: Response = undefined;
@@ -16,6 +17,7 @@ class ConfigsMiddleware {
         this.next = next;
         this._getUuid();
         this._getEndpoint();
+        this._getMethod();
     }
     private _getUuid() {
         const {
@@ -32,9 +34,19 @@ class ConfigsMiddleware {
             baseUrl,
         } = this.req;
         let splited_url = !!baseUrl ? baseUrl.split('/') : path.split('/');
+        console.log('splited_url ', splited_url);
         let last_value = splited_url[splited_url.length - 1];
-        let index = validate(last_value) || last_value === ':id' ? splited_url.length - 2 : splited_url.length - 1;
+        let index =
+            validate(last_value) || last_value === ':id' || last_value === ''
+                ? splited_url.length - 2
+                : splited_url.length - 1;
         this.endpoint = splited_url[index];
+    }
+    private _getMethod() {
+        const {
+            route: { methods },
+        } = this.req;
+        this.method = methods;
     }
     public throwError(message: any) {
         return this.res.status(400).json({
@@ -43,12 +55,13 @@ class ConfigsMiddleware {
             error: 'Bad Request',
         });
     }
+    public _validateToken() {}
 }
-export class __MoviesRepositories extends ConfigsMiddleware {
+export class MoviesRepositories extends __ConfigsMiddleware {
     @InjectRepository(MoviesEntity)
     public repository: Repository<MoviesEntity>;
 }
-export class __UsersRepositories extends ConfigsMiddleware {
+export class UsersRepositories extends __ConfigsMiddleware {
     @InjectRepository(UsersEntity)
     public repository: Repository<UsersEntity>;
 }
