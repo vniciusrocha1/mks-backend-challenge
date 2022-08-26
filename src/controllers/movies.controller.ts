@@ -1,24 +1,31 @@
 import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MoviesEntity } from 'src/entities/movies.entity';
+import { Repository } from 'typeorm';
 @Controller('movies')
 export class MoviesController {
+  constructor(
+    @InjectRepository(MoviesEntity)
+    private repository: Repository<MoviesEntity>,
+  ) {}
   @Post()
-  public create() {
+  public async create() {
     return { data: 'create!!' };
   }
   @Get()
-  public show() {
-    return { data: 'show!!' };
+  public async show(): Promise<MoviesEntity[]> {
+    return await this.repository.find();
   }
   @Get(':id')
-  public index() {
+  public async index() {
     return { data: 'index!!' };
   }
   @Patch(':id')
-  public update() {
+  public async update() {
     return { data: 'update!!' };
   }
   @Delete(':id')
-  public delete() {
+  public async delete() {
     return { data: 'delete!!' };
   }
 }
