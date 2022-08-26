@@ -4,6 +4,7 @@ import { IResponseMessage } from 'src/interfaces';
 import { UsersParamsDTO, UsersPATCHBodyDTO, UsersPOSTBodyDTO } from 'src/dtos/users.dto';
 import { UsersEntity } from 'src/entities/users.entity';
 import { Repository } from 'typeorm';
+import { hashSync } from 'bcryptjs';
 @Injectable()
 export class UsersService {
     constructor(
@@ -11,6 +12,7 @@ export class UsersService {
         private repository: Repository<UsersEntity>,
     ) {}
     async save(data: UsersPOSTBodyDTO): Promise<UsersEntity> {
+        if (!!data?.password) data.password = this._hashField(data.password);
         const created = this.repository.create(data);
         return await this.repository.save(created);
     }
@@ -21,6 +23,7 @@ export class UsersService {
         return await this.repository.findOne({ where: { id } });
     }
     async update({ id }: UsersParamsDTO, data: UsersPATCHBodyDTO): Promise<UsersEntity> {
+        if (!!data?.password) data.password = this._hashField(data.password);
         await this.repository.update(id, data);
         return await this.getOne({ id });
     }
@@ -28,4 +31,5 @@ export class UsersService {
         await this.repository.delete(id);
         return { statusCode: 200, message: 'successfully deleted!' };
     }
+    private _hashField = (value: string) => hashSync(value, 8);
 }

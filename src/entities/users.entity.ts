@@ -9,7 +9,7 @@ export class UsersEntity {
     cpf: string;
     @Column({ name: 'usr_birthdate', type: 'date' })
     birthdate: Date;
-    @Column({ name: 'usr_cellphone', type: 'char', length: 13, unique: true })
+    @Column({ name: 'usr_cellphone', type: 'char', length: 13 })
     cellphone: string;
     @Column({ name: 'usr_email', type: 'varchar', length: 255, unique: true, readonly: true })
     email: string;
