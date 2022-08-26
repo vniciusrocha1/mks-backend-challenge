@@ -8,23 +8,23 @@ export class MoviesController {
     constructor(private readonly service: MoviesService) {}
     @Post()
     async create(@Body() body: MoviesPOSTBodyDTO): Promise<{ data: MoviesEntity }> {
-        const movie = await this.service.save(body);
-        return { data: movie };
+        const data = await this.service.save(body);
+        return { data };
     }
     @Get()
     async show(): Promise<{ data: MoviesEntity[] }> {
-        const movies = await this.service.getAll();
-        return { data: movies };
+        const data = await this.service.getAll();
+        return { data };
     }
     @Get(':id')
     async index(@Param() params: MoviesParamsDTO): Promise<{ data: MoviesEntity }> {
-        const movie = await this.service.getOne(params);
-        return { data: movie };
+        const data = await this.service.getOne(params);
+        return { data };
     }
     @Patch(':id')
     async update(@Param() params: MoviesParamsDTO, @Body() body: MoviesPATCHBodyDTO): Promise<{ data: MoviesEntity }> {
-        const movie = await this.service.update(params, body);
-        return { data: movie };
+        const data = await this.service.update(params, body);
+        return { data };
     }
     @Delete(':id')
     async delete(@Param() params: MoviesParamsDTO): Promise<IResponseMessage> {
