@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IResponseMessage } from 'src/interfaces';
 import { MoviesParamsDTO, MoviesPATCHBodyDTO, MoviesPOSTBodyDTO } from 'src/dtos/movies.dto';
 import { MoviesEntity } from 'src/entities/movies.entity';
 import { Repository } from 'typeorm';
@@ -23,7 +24,8 @@ export class MoviesService {
         await this.repository.update(id, data);
         return await this.getOne({ id });
     }
-    async delete({ id }: MoviesParamsDTO) {
+    async delete({ id }: MoviesParamsDTO): Promise<IResponseMessage> {
         await this.repository.delete(id);
+        return { statusCode: 200, message: 'successfully deleted!' };
     }
 }

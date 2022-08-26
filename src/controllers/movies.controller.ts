@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { IResponseMessage } from 'src/interfaces';
 import { MoviesParamsDTO, MoviesPATCHBodyDTO, MoviesPOSTBodyDTO } from 'src/dtos/movies.dto';
 import { MoviesEntity } from 'src/entities/movies.entity';
 import { MoviesService } from 'src/services/movies.service';
@@ -26,7 +27,7 @@ export class MoviesController {
         return { data: movie };
     }
     @Delete(':id')
-    async delete(@Param() params: MoviesParamsDTO) {
-        await this.service.delete(params);
+    async delete(@Param() params: MoviesParamsDTO): Promise<IResponseMessage> {
+        return this.service.delete(params);
     }
 }
