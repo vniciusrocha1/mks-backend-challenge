@@ -14,7 +14,7 @@ export class AuthMiddleware extends __UsersRepositories implements NestMiddlewar
         } = this.req;
         if (!!email && !!password) {
             try {
-                let user = await this.repository.findOne({ where: { email: email } });
+                let user = await this.repository.findOne({ where: { email } });
                 let authorizate = compareSync(password, user?.password as string);
                 if (!authorizate) throw new Error();
             } catch {
