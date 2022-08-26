@@ -1,31 +1,64 @@
-import { IsBoolean, IsDateString, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import {
+    IsDateString,
+    IsEmail,
+    IsEmpty,
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+    IsUUID,
+    Length,
+    MaxLength,
+    MinLength,
+} from 'class-validator';
 export class UsersPOSTBodyDTO {
     @IsNotEmpty()
     @IsString()
-    title: string;
+    @MaxLength(255)
+    name: string;
     @IsNotEmpty()
     @IsString()
-    overview: string;
+    @Length(11)
+    cpf: string;
     @IsNotEmpty()
     @IsDateString()
-    release_date: Date;
-    @IsOptional()
-    @IsBoolean()
-    is_adult: boolean;
+    birthdate: Date;
+    @IsNotEmpty()
+    @IsString()
+    @MinLength(11)
+    @MaxLength(13)
+    cellphone: string;
+    @IsNotEmpty()
+    @IsEmail()
+    @MaxLength(255)
+    email: string;
+    @IsNotEmpty()
+    @IsString()
+    @MinLength(6)
+    password: string;
 }
 export class UsersPATCHBodyDTO {
     @IsOptional()
     @IsString()
-    title: string;
+    @MaxLength(255)
+    name: string;
     @IsOptional()
     @IsString()
-    overview: string;
+    @Length(11)
+    cpf: string;
     @IsOptional()
     @IsDateString()
-    release_date: Date;
+    birthdate: Date;
     @IsOptional()
-    @IsBoolean()
-    is_adult: boolean;
+    @IsString()
+    @MinLength(11)
+    @MaxLength(13)
+    cellphone: string;
+    @IsEmpty()
+    email: string;
+    @IsOptional()
+    @IsString()
+    @MinLength(6)
+    password: string;
 }
 export class UsersParamsDTO {
     @IsNotEmpty()
