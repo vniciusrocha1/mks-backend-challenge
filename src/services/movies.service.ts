@@ -11,8 +11,8 @@ export class MoviesService {
         private repository: Repository<MoviesEntity>,
     ) {}
     async save(data: MoviesPOSTBodyDTO): Promise<MoviesEntity> {
-        const movie = this.repository.create(data);
-        return await this.repository.save(movie);
+        const created = this.repository.create(data);
+        return await this.repository.save(created);
     }
     async getAll(): Promise<MoviesEntity[]> {
         return await this.repository.find();

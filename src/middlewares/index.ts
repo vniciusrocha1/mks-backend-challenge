@@ -2,15 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoviesEntity } from 'src/entities/movies.entity';
 import { Repository } from 'typeorm';
+import { UsersEntity } from 'src/entities/users.entity';
 const validate = require('uuid-validate');
-class __repositoriesMiddleware {
-    @InjectRepository(MoviesEntity)
-    public usersRepository: Repository<MoviesEntity>;
-    @InjectRepository(MoviesEntity)
-    public moviesRepository: Repository<MoviesEntity>;
-}
-export class ConfigsMiddleware extends __repositoriesMiddleware {
-    public repository = undefined;
+class ConfigsMiddleware {
     public endpoint: string = undefined;
     public uuid: string = undefined;
     public req: Request = undefined;
@@ -22,12 +16,6 @@ export class ConfigsMiddleware extends __repositoriesMiddleware {
         this.next = next;
         this._getUuid();
         this._getEndpoint();
-        this._getRepository();
-    }
-    private _getRepository() {
-        let repository = this.endpoint === 'users' ? this.usersRepository : undefined;
-        repository = this.endpoint === 'movies' ? this.moviesRepository : repository;
-        this.repository = repository;
     }
     private _getUuid() {
         const {
@@ -40,11 +28,12 @@ export class ConfigsMiddleware extends __repositoriesMiddleware {
     }
     private _getEndpoint() {
         const {
-            params: { id },
+            route: { path },
             baseUrl,
         } = this.req;
-        let splited_url = baseUrl.split('/');
-        let index = validate(splited_url[splited_url.length - 1]) ? splited_url.length - 2 : splited_url.length - 1;
+        let splited_url = !!baseUrl ? baseUrl.split('/') : path.split('/');
+        let last_value = splited_url[splited_url.length - 1];
+        let index = validate(last_value) || last_value === ':id' ? splited_url.length - 2 : splited_url.length - 1;
         this.endpoint = splited_url[index];
     }
     public throwError(message: any) {
@@ -54,4 +43,12 @@ export class ConfigsMiddleware extends __repositoriesMiddleware {
             error: 'Bad Request',
         });
     }
+}
+export class __MoviesRepositories extends ConfigsMiddleware {
+    @InjectRepository(MoviesEntity)
+    public repository: Repository<MoviesEntity>;
+}
+export class __UsersRepositories extends ConfigsMiddleware {
+    @InjectRepository(UsersEntity)
+    public repository: Repository<UsersEntity>;
 }
