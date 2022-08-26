@@ -1,31 +1,30 @@
-import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { MoviesEntity } from 'src/entities/movies.entity';
-import { Repository } from 'typeorm';
+import { MoviesService } from 'src/services/movies.service';
 @Controller('movies')
 export class MoviesController {
-  constructor(
-    @InjectRepository(MoviesEntity)
-    private repository: Repository<MoviesEntity>,
-  ) {}
-  @Post()
-  public async create() {
-    return { data: 'create!!' };
-  }
-  @Get()
-  public async show(): Promise<MoviesEntity[]> {
-    return await this.repository.find();
-  }
-  @Get(':id')
-  public async index() {
-    return { data: 'index!!' };
-  }
-  @Patch(':id')
-  public async update() {
-    return { data: 'update!!' };
-  }
-  @Delete(':id')
-  public async delete() {
-    return { data: 'delete!!' };
-  }
+    constructor(private readonly service: MoviesService) {}
+    @Post()
+    async create(@Body() body): Promise<{ data: MoviesEntity }> {
+        const movie = await this.service.save(body);
+        return { data: movie };
+    }
+    @Get()
+    async show() {
+        return await this.service.getAll();
+    }
+    @Get(':id')
+    async index(@Param() params): Promise<{ data: MoviesEntity }> {
+        const movie = await this.service.getOne(params);
+        return { data: movie };
+    }
+    @Patch(':id')
+    async update(@Param() params, @Body() body): Promise<{ data: MoviesEntity }> {
+        const movie = await this.service.update(params, body);
+        return { data: movie };
+    }
+    @Delete(':id')
+    async delete(@Param() params) {
+        return await this.service.delete(params);
+    }
 }
