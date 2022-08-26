@@ -11,17 +11,17 @@ export class MoviesService {
     ) {}
     async save(data: MoviesPOSTBodyDTO): Promise<MoviesEntity> {
         const movie = this.repository.create(data);
-        return this.repository.save(movie);
+        return await this.repository.save(movie);
     }
     async getAll(): Promise<MoviesEntity[]> {
-        return this.repository.find();
+        return await this.repository.find();
     }
     async getOne({ id }: MoviesParamsDTO): Promise<MoviesEntity> {
-        return this.repository.findOne({ where: { id } });
+        return await this.repository.findOne({ where: { id } });
     }
     async update({ id }: MoviesParamsDTO, data: MoviesPATCHBodyDTO): Promise<MoviesEntity> {
         await this.repository.update(id, data);
-        return this.getOne({ id });
+        return await this.getOne({ id });
     }
     async delete({ id }: MoviesParamsDTO) {
         await this.repository.delete(id);
