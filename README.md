@@ -1,5 +1,8 @@
-Diretrizes do desafio (Ao fim do arquivo deixei algumas informações sobre o desenvolvimento!)
+Diretrizes do desafio
 ===========================
+ Ao fim do arquivo deixei algumas informações sobre o desenvolvimento!
+ Deploy + doc: https://mks-backend-challenge-vinicius.herokuapp.com/api/v1
+ ===========================
 
 Por favor organize, design, teste, faça a documentação e deploy do seu código da forma como se ele fosse para produção, depois nos envie um link do repositório no Github.
 
