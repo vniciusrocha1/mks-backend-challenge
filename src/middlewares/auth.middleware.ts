@@ -18,7 +18,7 @@ export class AuthMiddleware extends UsersRepositories implements NestMiddleware 
                 let authorizate = compareSync(password, user?.password as string);
                 if (!authorizate) throw new Error();
             } catch {
-                return this.throwError([`wrong email or password!`]);
+                return this.throwError([`wrong email or password!`], 401);
             }
         }
         return this.next();

@@ -11,11 +11,15 @@ export class UsersMiddleware extends UsersRepositories implements NestMiddleware
         if (!!this.uuid) {
             //? Validating the id sent in the request
             let data = await this.repository.findOne({ where: { id: this.uuid } });
-            if (!!!data) return this.throwError([`id:'${this.uuid}' was not found in '/${this.endpoint}' endpoint!`]);
+            if (!!!data) {
+                return this.throwError([`id:'${this.uuid}' was not found in '/${this.endpoint}' endpoint!`], 404);
+            }
         } else if (!!this.body) {
             //? Validating the unique fields sent in the request
             let alerts = await this.__validateUniqueFields(['cpf', 'email']);
-            if (alerts.length > 0) return this.throwError(alerts);
+            if (alerts.length > 0) {
+                return this.throwError(alerts, 406);
+            }
         }
         return this.next();
     }

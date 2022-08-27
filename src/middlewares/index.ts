@@ -53,11 +53,17 @@ export class __ConfigsMiddleware {
         const { body } = this.req;
         this.body = body;
     }
-    public throwError(message: any) {
-        return this.res.status(400).json({
-            statusCode: 400,
+    public throwError(message: any, status: number = 400) {
+        let errorsList = {
+            400: 'Bad Request',
+            401: 'Unauthorized',
+            404: 'Not Found',
+            406: 'Not Acceptable',
+        };
+        return this.res.status(status).json({
+            statusCode: status,
             message: message,
-            error: 'Bad Request',
+            error: errorsList[status],
         });
     }
 }

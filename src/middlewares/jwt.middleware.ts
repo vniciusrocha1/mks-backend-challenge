@@ -22,10 +22,10 @@ export class JwtMiddleware extends __ConfigsMiddleware implements NestMiddleware
                         if (!!!decoded) throw new Error();
                     });
                 } catch {
-                    return this.throwError([`invalid token!!`]);
+                    return this.throwError([`invalid token!!`], 406);
                 }
             } else {
-                return this.throwError('token is missing!');
+                return this.throwError(['token is missing!'], 401);
             }
         }
         return this.next();
