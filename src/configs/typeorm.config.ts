@@ -3,7 +3,7 @@ import 'dotenv/config';
 export const TypeOrmConfig: TypeOrmModuleOptions = {
     type: 'postgres',
     url: process.env.DATABASE_URL,
-    synchronize: true,
+    synchronize: false,
     entities: ['dist/**/*.entity.js'],
     ssl: {
         rejectUnauthorized: false,

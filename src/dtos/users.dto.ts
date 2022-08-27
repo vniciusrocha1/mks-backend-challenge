@@ -13,7 +13,7 @@ import {
 export class CreateUserDto {
     /**
      * User full-name
-     * @example Example User da Silva
+     * @example 'Example User da Silva'
      * @nullable false
      * @requires true
      */
@@ -54,7 +54,7 @@ export class CreateUserDto {
     cpf: string;
     /**
      * User email, used in login
-     * @example example.user.silva@example mail.com
+     * @example example.user.silva@examplemail.com
      * @nullable false,
      * @uniqueItems true
      * @requires true
@@ -77,7 +77,7 @@ export class CreateUserDto {
 export class UpdateUserDto {
     /**
      * User full-name
-     * @example Example User da Silva
+     * @example 'Example User da Silva'
      * @nullable true
      * @requires false
      */
