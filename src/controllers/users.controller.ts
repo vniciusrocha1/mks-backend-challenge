@@ -1,13 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { IResponseMessage } from 'src/interfaces';
-import { UsersParamsDTO, UsersPATCHBodyDTO, UsersPOSTBodyDTO } from 'src/dtos/users.dto';
+import { FindUserIdDto, UpdateUserDto, CreateUserDto } from 'src/dtos/users.dto';
 import { UsersEntity } from 'src/entities/users.entity';
 import { UsersService } from 'src/services/users.service';
+import { ApiTags } from '@nestjs/swagger';
 @Controller('users')
+@ApiTags('/users')
 export class UsersController {
     constructor(private readonly service: UsersService) {}
     @Post()
-    async create(@Body() body: UsersPOSTBodyDTO): Promise<{ data: UsersEntity }> {
+    async create(@Body() body: CreateUserDto): Promise<{ data: UsersEntity }> {
         const data = await this.service.save(body);
         return { data };
     }
@@ -17,17 +19,17 @@ export class UsersController {
         return { data };
     }
     @Get(':id')
-    async index(@Param() params: UsersParamsDTO): Promise<{ data: UsersEntity }> {
+    async index(@Param() params: FindUserIdDto): Promise<{ data: UsersEntity }> {
         const data = await this.service.getOne(params);
         return { data };
     }
     @Patch(':id')
-    async update(@Param() params: UsersParamsDTO, @Body() body: UsersPATCHBodyDTO): Promise<{ data: UsersEntity }> {
+    async update(@Param() params: FindUserIdDto, @Body() body: UpdateUserDto): Promise<{ data: UsersEntity }> {
         const data = await this.service.update(params, body);
         return { data };
     }
     @Delete(':id')
-    async delete(@Param() params: UsersParamsDTO): Promise<IResponseMessage> {
+    async delete(@Param() params: FindUserIdDto): Promise<IResponseMessage> {
         return this.service.delete(params);
     }
 }

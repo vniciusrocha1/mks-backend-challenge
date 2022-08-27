@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersEntity } from 'src/entities/users.entity';
 import { Repository } from 'typeorm';
-import { AuthPOSTBodyDTO } from 'src/dtos/auth.dto';
+import { AuthenticateLoginDto } from 'src/dtos/auth.dto';
 import { sign } from 'jsonwebtoken';
 @Injectable()
 export class AuthService {
@@ -10,7 +10,7 @@ export class AuthService {
         @InjectRepository(UsersEntity)
         private repository: Repository<UsersEntity>,
     ) {}
-    async login({ email, password }: AuthPOSTBodyDTO): Promise<{ token: string; data: UsersEntity }> {
+    async login({ email, password }: AuthenticateLoginDto): Promise<{ token: string; data: UsersEntity }> {
         const data = await this.repository.findOne({ where: { email } });
         const token = sign(
             { email: email, password: password },
