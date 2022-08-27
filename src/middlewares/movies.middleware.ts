@@ -1,7 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { MoviesRepositories } from '.';
-const util = require('util');
 @Injectable()
 export class MoviesMiddleware extends MoviesRepositories implements NestMiddleware {
     use(req: Request, res: Response, next: NextFunction) {

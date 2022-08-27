@@ -5,12 +5,13 @@ import { Repository } from 'typeorm';
 import { UsersEntity } from 'src/entities/users.entity';
 const validate = require('uuid-validate');
 export class __ConfigsMiddleware {
-    public endpoint: string = undefined;
-    public method: string = undefined;
-    public uuid: string = undefined;
-    public req: Request = undefined;
-    public res: Response = undefined;
-    public next: NextFunction = undefined;
+    public endpoint: string;
+    public method: string;
+    public body: any;
+    public uuid: string;
+    public req: Request;
+    public res: Response;
+    public next: NextFunction;
     public __init__(req: Request, res: Response, next: NextFunction) {
         this.req = req;
         this.res = res;
@@ -18,6 +19,7 @@ export class __ConfigsMiddleware {
         this._getUuid();
         this._getEndpoint();
         this._getMethod();
+        this._getBody();
     }
     private _getUuid() {
         const {
@@ -47,6 +49,10 @@ export class __ConfigsMiddleware {
         } = this.req;
         this.method = methods;
     }
+    private _getBody() {
+        const { body } = this.req;
+        this.body = body;
+    }
     public throwError(message: any) {
         return this.res.status(400).json({
             statusCode: 400,
@@ -54,7 +60,6 @@ export class __ConfigsMiddleware {
             error: 'Bad Request',
         });
     }
-    public _validateToken() {}
 }
 export class MoviesRepositories extends __ConfigsMiddleware {
     @InjectRepository(MoviesEntity)
