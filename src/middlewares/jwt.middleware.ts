@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { __ConfigsMiddleware } from '.';
+import { UsersRepositories, __ConfigsMiddleware } from '.';
 import { verify } from 'jsonwebtoken';
 @Injectable()
 export class JwtMiddleware extends __ConfigsMiddleware implements NestMiddleware {
@@ -18,9 +18,13 @@ export class JwtMiddleware extends __ConfigsMiddleware implements NestMiddleware
                     const token = !!authorization?.split(' ')[1]
                         ? (authorization?.split(' ')[1] as string)
                         : (authorization as string);
-                    verify(token, process.env.SECRET_KEY.toString() || 'P1n3@8l&s@r3s08Ad', (_, decoded: any) => {
-                        if (!!!decoded) throw new Error();
-                    });
+                    verify(
+                        token,
+                        process.env?.SECRET_KEY?.toString() || 'P1n3@8l&s@r3s08Ad',
+                        async (_: any, decoded: any) => {
+                            if (!!!decoded) throw new Error();
+                        },
+                    );
                 } catch {
                     return this.throwError([`invalid token!!`], 406);
                 }

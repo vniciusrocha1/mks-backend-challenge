@@ -77,7 +77,7 @@ export class CreateUserDto {
 export class UpdateUserDto {
     /**
      * User full-name
-     * @example "Example User da Silva"
+     * @example "Updated example User da Silva"
      * @nullable true
      * @requires false
      */
@@ -120,7 +120,7 @@ export class UpdateUserDto {
      * Cannot be updated - Send empty or remove from request body!
      * @nullable true
      * @ignore true
-     * @example ""
+     * @example
      * @requires false
      */
     @IsEmpty()
