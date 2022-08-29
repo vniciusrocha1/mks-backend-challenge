@@ -37,7 +37,7 @@ export class CreateMovieDto {
      */
     @IsOptional()
     @IsBoolean()
-    is_adult: boolean;
+    is_adult?: boolean;
 }
 export class UpdateMovieDto {
     /**

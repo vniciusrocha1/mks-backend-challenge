@@ -92,9 +92,8 @@ export class UpdateUserDto {
      * @requires false
      */
     @IsOptional()
-    @IsString()
-    @Length(11)
-    cpf?: string;
+    @IsDateString()
+    birthdate?: Date;
     /**
      * User cellphone, max 13 characters, only numbers
      * @example 5541992272301
@@ -102,8 +101,10 @@ export class UpdateUserDto {
      * @requires false
      */
     @IsOptional()
-    @IsDateString()
-    birthdate?: Date;
+    @IsString()
+    @MinLength(11)
+    @MaxLength(13)
+    cellphone?: string;
     /**
      * User CPF, 11 characters, numbers only
      * @example 02126512489
@@ -113,13 +114,13 @@ export class UpdateUserDto {
      */
     @IsOptional()
     @IsString()
-    @MinLength(11)
-    @MaxLength(13)
-    cellphone?: string;
+    @Length(11)
+    cpf?: string;
     /**
-     * Cannot be updated!
+     * Cannot be updated - Send empty or remove from request body!
      * @nullable true
      * @ignore true
+     * @example ""
      * @requires false
      */
     @IsEmpty()
