@@ -3,7 +3,7 @@ import { IsBoolean, IsDate, IsDateString, IsNotEmpty, IsOptional, IsString, IsUU
 export class CreateMovieDto {
     /**
      * Commercial title of the movie
-     * @example Avengers: Endgame
+     * @example "Avengers: Endgame"
      * @nullable false
      * @required true
      */
@@ -12,7 +12,7 @@ export class CreateMovieDto {
     title: string;
     /**
      * Movie overview
-     * @example The Avengers join forces to fight Thanos, after the villain eliminates half of the living beings in the galaxy.
+     * @example "The Avengers join forces to fight Thanos, after the villain eliminates half of the living beings in the galaxy."
      * @nullable false
      * @required true
      */
@@ -37,12 +37,12 @@ export class CreateMovieDto {
      */
     @IsOptional()
     @IsBoolean()
-    is_adult: boolean;
+    is_adult?: boolean;
 }
 export class UpdateMovieDto {
     /**
      * Commercial title of the movie
-     * @example Avengers: Endgame
+     * @example "Avengers: Endgame"
      * @nullable true
      * @required false
      */
@@ -51,7 +51,7 @@ export class UpdateMovieDto {
     title?: string;
     /**
      * Movie overview
-     * @example Updated movies overview.
+     * @example "Updated movies overview."
      * @nullable true
      * @required false
      */

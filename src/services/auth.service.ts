@@ -10,11 +10,11 @@ export class AuthService {
         @InjectRepository(UsersEntity)
         private repository: Repository<UsersEntity>,
     ) {}
-    async login({ email, password }: AuthenticateLoginDto): Promise<{ token: string; data: UsersEntity }> {
+    async login({ email }: AuthenticateLoginDto): Promise<{ token: string; data: UsersEntity }> {
         const data = await this.repository.findOne({ where: { email } });
         const token = sign(
-            { email: email, password: password },
-            process.env.SECRET_KEY.toString() || 'P1n3@8l&s@r3s08Ad',
+            { email, password: data?.password },
+            process.env?.SECRET_KEY?.toString() || 'P1n3@8l&s@r3s08Ad',
             {
                 expiresIn: '24h',
             },

@@ -3,9 +3,10 @@ import { IResponseMessage } from 'src/interfaces';
 import { FindMovieIdDto, UpdateMovieDto, CreateMovieDto } from 'src/dtos/movies.dto';
 import { MoviesEntity } from 'src/entities/movies.entity';
 import { MoviesService } from 'src/services/movies.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 @Controller('movies')
 @ApiTags('/movies')
+@ApiBearerAuth()
 export class MoviesController {
     constructor(private readonly service: MoviesService) {}
     @Post()

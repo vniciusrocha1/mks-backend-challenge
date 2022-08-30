@@ -3,4 +3,9 @@ export const swaggerConfig = new DocumentBuilder()
     .setTitle('mks-backend-challenge - @vniciusrocha1')
     .setDescription('Swagger documentatios for mks-backend-challenge')
     .setVersion('1.0')
+    .addBearerAuth({
+        bearerFormat: 'JWT',
+        scheme: 'bearer',
+        type: 'http',
+    })
     .build();

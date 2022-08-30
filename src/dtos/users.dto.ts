@@ -13,7 +13,7 @@ import {
 export class CreateUserDto {
     /**
      * User full-name
-     * @example Example User da Silva
+     * @example "Example User da Silva"
      * @nullable false
      * @requires true
      */
@@ -54,7 +54,7 @@ export class CreateUserDto {
     cpf: string;
     /**
      * User email, used in login
-     * @example example.user.silva@example mail.com
+     * @example "example.user.silva@examplemail.com"
      * @nullable false,
      * @uniqueItems true
      * @requires true
@@ -77,7 +77,7 @@ export class CreateUserDto {
 export class UpdateUserDto {
     /**
      * User full-name
-     * @example Example User da Silva
+     * @example "Updated example User da Silva"
      * @nullable true
      * @requires false
      */
@@ -92,9 +92,8 @@ export class UpdateUserDto {
      * @requires false
      */
     @IsOptional()
-    @IsString()
-    @Length(11)
-    cpf?: string;
+    @IsDateString()
+    birthdate?: Date;
     /**
      * User cellphone, max 13 characters, only numbers
      * @example 5541992272301
@@ -102,8 +101,10 @@ export class UpdateUserDto {
      * @requires false
      */
     @IsOptional()
-    @IsDateString()
-    birthdate?: Date;
+    @IsString()
+    @MinLength(11)
+    @MaxLength(13)
+    cellphone?: string;
     /**
      * User CPF, 11 characters, numbers only
      * @example 02126512489
@@ -113,13 +114,13 @@ export class UpdateUserDto {
      */
     @IsOptional()
     @IsString()
-    @MinLength(11)
-    @MaxLength(13)
-    cellphone?: string;
+    @Length(11)
+    cpf?: string;
     /**
-     * Cannot be updated!
+     * Cannot be updated - Send empty or remove from request body!
      * @nullable true
      * @ignore true
+     * @example
      * @requires false
      */
     @IsEmpty()
